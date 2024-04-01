@@ -13,6 +13,8 @@ function App() {
     const uploadFile = e.target.files![0]
     const uploadFileName = uploadFile.name
 
+    // Replace this link with your own cloud function url
+    // Source code available here: https://github.com/jiechenmc/gdsc-serverless_compute/tree/main
     const gcf_url = `https://us-east1-loqi-loqi.cloudfunctions.net/function-1/?dest=${uploadFileName}`
 
     const fd = new FormData()
