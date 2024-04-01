@@ -39,7 +39,7 @@ function App() {
         <input name="file" type='file' accept=".pdf" onChange={e => handleImageUpload(e)} />
         <p>
           <a href={imageUrl} target='_blank'>
-            {imageUrl.startsWith("https://") ? imageUrl : "Upload an image to get started!"}
+            {imageUrl.startsWith("https://") ? imageUrl : "Upload an pdf to get started!"}
           </a>
         </p>
       </div>
