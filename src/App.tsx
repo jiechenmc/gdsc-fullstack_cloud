@@ -5,9 +5,9 @@ import './App.css'
 
 function App() {
 
-  const [imageUrl, setImageUrl] = useState("Upload an image to get started")
+  const [imageUrl, setImageUrl] = useState("Upload an image to get started!")
 
-  const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) =>{
+  const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     // Note: our cloud function can only accept pdf right now
 
     const uploadFile = e.target.files![0]
@@ -17,9 +17,11 @@ function App() {
 
     const fd = new FormData()
 
-    fd.append("data", await uploadFile.text());
+    const blob = new Blob([uploadFile], { type: 'application/pdf' })
 
-    fetch(gcf_url, {method: "POST", body:fd, mode:"no-cors"}).then(response=>response.text().then(text=>console.log(text)))
+    fd.append("data", blob);
+
+    fetch(gcf_url, { method: "POST", body: fd }).then(response => response.text().then(text => setImageUrl(text)))
   }
 
   return (
@@ -34,9 +36,11 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <input name="file" type='file' accept=".pdf" onChange={e=>handleImageUpload(e)} />
+        <input name="file" type='file' accept=".pdf" onChange={e => handleImageUpload(e)} />
         <p>
-          {imageUrl}
+          <a href={imageUrl} target='_blank'>
+            {imageUrl.startsWith("https://") ? imageUrl : "Upload an image to get started!"}
+          </a>
         </p>
       </div>
       <p className="read-the-docs">
