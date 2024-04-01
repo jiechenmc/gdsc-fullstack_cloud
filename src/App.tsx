@@ -46,7 +46,7 @@ function App() {
         </p>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        Uploading a pdf file will generate a public url where you can view your file on cloud storage!
       </p>
     </>
   )
