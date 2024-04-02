@@ -6,6 +6,7 @@ import './App.css'
 function App() {
 
   const [imageUrl, setImageUrl] = useState("Upload an image to get started!")
+  const [loading, setLoading] = useState(false)
 
   const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     // Note: our cloud function can only accept pdf right now
@@ -23,7 +24,11 @@ function App() {
 
     fd.append("data", blob);
 
-    fetch(gcf_url, { method: "POST", body: fd }).then(response => response.text().then(text => setImageUrl(text)))
+    fetch(gcf_url, { method: "POST", body: fd }).then(response => response.text().then(text => {
+      setImageUrl(text)
+      setLoading(false)
+    }))
+    setLoading(true)
   }
 
   return (
@@ -38,6 +43,8 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
+        {loading ? <div className='loader'></div>
+          : <></>}
         <input name="file" type='file' accept=".pdf" onChange={e => handleImageUpload(e)} />
         <p>
           <a href={imageUrl} target='_blank'>
